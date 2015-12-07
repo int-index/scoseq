@@ -1,0 +1,19 @@
+sudo: false
+
+addons:
+  apt:
+    packages:
+      - libgmp-dev
+
+env:
+  - STACK_YAML=stack.yaml
+
+install:
+  - mkdir -p ~/.local/bin
+  - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.10.0/stack-0.1.10.0-linux-x86_64.tar.gz | tar -xvzf -
+  - mv stack-0.1.10.0-linux-x86_64/stack ~/.local/bin
+  - export PATH=~/.local/bin:$PATH
+  - stack setup
+
+script:
+  - stack test
